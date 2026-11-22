@@ -1,0 +1,66 @@
+APLICAȚIA PENTRU ECHIPA DE VOLUNTARI – INSTALARE PE cPANEL
+===========================================================
+
+Ce face: programul de joi și duminică, biblioteca de cântări, ordinea serviciului,
+zilele în care cineva nu poate. Totul în română. Pornește goală: fără oameni,
+fără cântări, fără date din altă biserică.
+
+Ai nevoie de:
+  - un hosting cu cPanel, PHP 8.2 (merge și 8.1+), MySQL / MariaDB
+  - un domeniu sau subdomeniu (ex. voluntari.biserica-ta.ro), cu HTTPS (SSL)
+  - o căsuță de email pentru trimitere (ex. noreply@biserica-ta.ro) – recomandat
+
+
+1. SUBDOMENIUL
+   cPanel → Domains (sau Subdomains) → creează subdomeniul.
+   Notează dosarul lui (ex. public_html/voluntari sau voluntari.biserica-ta.ro).
+   cPanel → SSL/TLS Status → asigură-te că are certificat (AutoSSL).
+
+2. VERSIUNEA PHP
+   cPanel → MultiPHP Manager (sau „Select PHP Version”) → alege PHP 8.2 pentru subdomeniu.
+   Extensii necesare: pdo_mysql, mbstring, gd, openssl.
+   Recomandat: zip (fără ea, importul de cântări merge doar din CSV, nu din Excel).
+
+3. BAZA DE DATE
+   cPanel → MySQL Databases (sau „Manage My Databases”):
+     a) creează o bază de date nouă (ex. cont_voluntari)
+     b) creează un utilizator cu o parolă puternică
+     c) adaugă utilizatorul la bază cu „ALL PRIVILEGES”
+   Notează: numele bazei, utilizatorul și parola. Baza trebuie să fie goală.
+
+4. EMAILUL (recomandat)
+   cPanel → Email Accounts → creează noreply@domeniul-tău.
+   La „Connect Devices” găsești serverul SMTP (de obicei mail.domeniul-tău, port 465, SSL).
+
+5. FIȘIERELE
+   cPanel → File Manager → intră în dosarul subdomeniului.
+   Upload → alege acest fișier ZIP → după încărcare: clic dreapta pe el → Extract.
+   Fișierele (index.php, install.php, app/, assets/, storage/ …) trebuie să fie
+   direct în dosarul subdomeniului, nu într-un subdosar. Apoi poți șterge ZIP-ul.
+   Dacă nu vezi .htaccess: Settings (dreapta sus) → „Show Hidden Files”.
+
+6. INSTALAREA
+   Deschide în browser:  https://subdomeniul-tău/install.php
+   Completează: numele bisericii, numele aplicației, adresa, datele bazei de date,
+   emailul și primul administrator (numele, emailul și parola ta). Apasă „Instalează”.
+   Dacă apare „Fișierele abia au fost copiate”, așteaptă 30 de secunde și apasă din nou.
+   După instalare, pagina se blochează singură (poți șterge install.php din cPanel).
+
+7. PRIMII PAȘI ÎN APLICAȚIE (ca administrator)
+   - Setări → Biserică și logo: încarcă logoul, trimite-ți un email de test.
+   - Setări → Roluri și poziții: pozițiile echipei voastre.
+   - Setări → Șabloane: serviciile care se repetă (zi, oră, poziții, ordinea implicită).
+   - Setări → Cărți: cărțile de cântări (ex. CR).
+   - Cântări → Importă: descarcă modelul Excel, completează-l, încarcă-l.
+   - Setări → Persoane și invitații: trimite linkul de înscriere echipei.
+   Ghidul cu imagini pentru toți: meniul ☰ → Ghid (sau Profil → Ghid).
+
+LUCRURI BUNE DE ȘTIUT
+   - Parolele (bază de date, email) stau doar pe server, în app/config.php.
+     Nu trimite acest fișier nimănui.
+   - Fișierele încărcate (MP3, acorduri, prezentări, poze, logo) stau în storage/.
+     Fă backup din cPanel la baza de date și la dosarul storage/ din când în când.
+   - Limita de încărcare e în .user.ini (64 MB). Unele gazde o ignoră; atunci
+     se schimbă din cPanel → MultiPHP INI Editor (upload_max_filesize, post_max_size).
+   - Jurnalele de erori: storage/logs/app.log și storage/logs/mail.log.
+   - Reinstalare de la zero: șterge app/config.php și golește baza de date.
