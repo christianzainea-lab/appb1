@@ -12,8 +12,10 @@ PHP 8.1+ și MySQL, fără biblioteci externe. Se instalează pe orice hosting c
 
 ## Descărcare
 
-Ia arhiva **`echipa-voluntari-v1.5.0.zip`** din [Releases](../../releases/latest)
-(sau butonul verde **Code → Download ZIP** de pe această pagină).
+Ia arhiva **`echipa-voluntari-v1.5.0.zip`** din [Releases](../../releases/latest).
+
+Merge și butonul verde **Code → Download ZIP** de pe această pagină. Atunci arhiva are un dosar în plus
+(`appb1-main`): încarcă pe server **conținutul** acelui dosar, nu dosarul în sine.
 
 ## Instalare
 
